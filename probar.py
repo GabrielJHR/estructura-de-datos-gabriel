@@ -54,7 +54,7 @@ import tp01
 #print(tp01.Funcion(9))
 
 #Ejercicio 19
-#print(tp01.Centinela([0,2,3,4,1,8], 1))
+print(tp01.Centinela([0,2,3,4,1,8], 9))
 
 #Ejercicio 20
 #print(tp01.Binaria([1,2,4,6,7,8,9], 4))
