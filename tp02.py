@@ -311,12 +311,13 @@ else:
 
 
 #Ejercicio 13
+'''
 print(pilaNumeros.pila)
 
 OrdenarPila(pilaNumeros)
 
 print(pilaNumeros.pila)
-
+'''
 
 
 #Ejercicio 14

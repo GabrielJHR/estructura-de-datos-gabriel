@@ -20,9 +20,8 @@ class Pila():
 		else:
 			return 0
 
-	def llenarPila(self,inicio,fin):
-		for i in range(fin):
-			self.apilar(random.randint(inicio,fin))
+	def cima(self):
+		return self.pila[-1]
 
 	def llenarPila(self,inicio,fin,iteraciones):
 		for i in range(iteraciones):
@@ -49,3 +48,15 @@ class Pila():
 		while self.pilaVacia() == 0:
 			pila.apilar(self.desapilar())
 		return pila
+
+	def __len__(self):
+		return len(self.pila)
+
+	def __str__(self):
+		cadena = ""
+		for i in range(len(self.pila) - 1):
+			cadena = cadena + str(self.pila[i])  + ", "
+		
+		cadena = cadena + str(self.pila[-1])
+
+		return cadena
