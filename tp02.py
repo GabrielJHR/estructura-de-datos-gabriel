@@ -321,10 +321,82 @@ print(pilaNumeros.pila)
 
 
 #Ejercicio 14
+'''def quicksort_pila(pila):
+	pila_izq = pilas.Pila()
+	pila_der = pilas.Pila()
 
+	if len(pila) <= 1:
+		return pila
+	else:
+		pivote = pila.desapilar()
+		for i in range(len(pila)):
+			comparar = pila.desapilar()
+			if comparar <= pivote:
+				pila_izq.apilar(comparar)
+			else:
+				pila_der.apilar(comparar)
+
+	izq = quicksort_pila(pila_izq)
+	der = quicksort_pila(pila_der)
+	izq.apilar(pivote)
+	aux = pilas.Pila()
+
+	for i in range(len(der)):
+		aux.apilar(der.desapilar())
+	
+	for i in range(len(aux)):
+		izq.apilar(aux.desapilar())
+
+	return izq
+
+print("Desordenado:")
+print(pilaNumeros)
+print("Ordenado:")
+print(quicksort_pila(pilaNumeros))
+'''
 
 
 #Ejercicio 15
+'''def interseccion(pila1, pila2):
+	p1_aux = pilas.Pila()
+	p2_aux = pilas.Pila()
+	p_interseccion = pilas.Pila()
+
+	while pila1.pilaVacia() == 0:
+		while pila2.pilaVacia() == 0:
+			if pila1.cima() == pila2.cima():
+				p_interseccion.apilar(pila1.cima())
+
+			p2_aux.apilar(pila2.desapilar())
+
+		while p2_aux.pilaVacia() == 0:
+			pila2.apilar(p2_aux.desapilar())
+
+		p1_aux.apilar(pila1.desapilar())
+	while p1_aux.pilaVacia() == 0:
+		pila1.apilar(p1_aux.desapilar())
+
+	return p_interseccion
+
+
+pilaPersonajesV = pilas.Pila()
+pilaPersonajesVII = pilas.Pila()
+
+while True:
+	personaje = input("Ingresar personaje de Star Wars episodio V: ")
+	if personaje == '':
+		break
+	pilaPersonajesV.apilar(personaje)
+
+while True:
+	personaje = input("Ingresar personaje de Star Wars episodio VII: ")
+	if personaje == '':
+		break
+	pilaPersonajesVII.apilar(personaje)
+
+print("\nPersonajes que estan en los dos episodios: ")
+print(interseccion(pilaPersonajesV, pilaPersonajesVII))'''
+
 
 
 
@@ -385,6 +457,115 @@ else:
 
 print("El porcentaje de vocales con respecto a cosonantes es ", len(pVocales.pila) / (len(pVocales.pila) + len(pConsonantes.pila)) * 100 ,"%")
 '''
+
+#Ejercicio 17
+'''def ordenarPeso(pila):
+	menor = pila.cima()[1]
+	auxPila = pilas.Pila()
+	pilaOrdenada = pilas.Pila()
+		
+	while pila.pilaVacia() == 0:
+		menor = pila.cima()[1]
+		while pila.pilaVacia() == 0:
+			if pila.cima()[1] <= menor:
+				menor = pila.cima()[1]
+			auxPila.apilar(pila.desapilar())
+
+		while auxPila.pilaVacia() == 0:
+			if auxPila.cima()[1] == menor:
+				pilaOrdenada.apilar(auxPila.desapilar())
+			else:
+				pila.apilar(auxPila.desapilar())
+	
+	return pilaOrdenada
+
+pilaOficina = pilas.Pila()
+
+pilaOficina.apilar(("Objeto 1", 1.5))
+pilaOficina.apilar(("Objeto 2", 2.5))
+pilaOficina.apilar(("Objeto 3", 0.5))
+pilaOficina.apilar(("Objeto 4", 4.5))
+pilaOficina.apilar(("Objeto 5", 3.35))
+pilaOficina.apilar(("Objeto 6", 3.10))
+pilaOficina.apilar(("Objeto 7", 1.9))
+
+print("Objetos desordenados")
+print(pilaOficina)
+print("Objetos ordenados")
+print(ordenarPeso(pilaOficina))'''
+
+
+
+
+
+
+
+
+#Ejercicio 18
+'''class Pelicula(object):
+	def __init__(self, titulo, estudio, anio):
+		self.titulo = titulo
+		self.estudio = estudio
+		self.anio = anio
+
+	def __str__(self):
+		return "Titulo: " + self.titulo + "\n"\
+		"Estudio: " + self.estudio + "\n"\
+		"Anio: " + str(self.anio) + "\n"
+
+
+def filtrarAnioEstreno(pila, anio):
+	pilaAux = pilas.Pila()
+	resultado = pilas.Pila()
+
+	while pila.pilaVacia() == 0:
+		pelicula = pila.desapilar()
+		if pelicula.anio == anio:
+			resultado.apilar(pelicula)
+		pilaAux.apilar(pelicula)
+		
+
+	while pilaAux.pilaVacia() == 0:
+		pila.apilar(pilaAux.desapilar())
+
+	return resultado
+
+def filtrarEstudio(pila, estudio):
+	pilaAux = pilas.Pila()
+	resultado = pilas.Pila()
+
+	while pila.pilaVacia() == 0:
+		pelicula = pila.desapilar()
+		if pelicula.estudio == estudio:
+			resultado.apilar(pelicula)
+		pilaAux.apilar(pelicula)
+		
+
+	while pilaAux.pilaVacia() == 0:
+		pila.apilar(pilaAux.desapilar())
+
+	return resultado
+
+pilaPeliculas = pilas.Pila()
+
+while True:
+	print("Agregar una pelicula:")
+	titulo = input("Titulo: ")
+	if titulo == '':
+		break
+	estudio = input("Estudio: ")
+	anio = int(input("Anio: "))
+	pilaPeliculas.apilar(Pelicula(titulo, estudio, anio))
+
+print("Peliculas estrenadas en 2014:")
+print(filtrarAnioEstreno(pilaPeliculas, 2014))
+print("Cantidad de peliculas estrenadas en 2018:")
+print(len(filtrarAnioEstreno(pilaPeliculas, 2018)))
+print("Peliculas estrenadas en 2016 que pertenecen a Marvel Studios:")
+print(filtrarEstudio(filtrarAnioEstreno(pilaPeliculas, 2016), "Marvel Studios"))
+'''
+
+
 
 
 
@@ -510,3 +691,82 @@ print("Temperatura mínima: ", Min)
 print("Promedio: ", promedio)
 print("Cantidad de temperaturas inferiores al promedio: ", inferior)
 print("Cantidad de temperaturas superiores al promedio: ", superior)'''
+
+
+
+
+
+
+
+#22
+'''class Personaje(object):
+	def __init__(self, nombre, cantidad):
+		self.nombre = nombre
+		self.cantidad = cantidad
+
+	def __str__(self):
+		return "Nombre: " + self.nombre + "\n"\
+		"Cantidad: " + str(self.cantidad) + "\n"
+
+def ubicacionPersonaje(pila, nombre):
+	pilaAux = pilas.Pila()
+	pos = 0
+
+	while pila.pilaVacia() == 0:
+		if pila.cima().nombre == nombre:
+			break
+		else:
+			pilaAux.apilar(pila.desapilar())
+		pos += 1
+
+	while pilaAux.pilaVacia() == 0:
+		pila.apilar(pilaAux.desapilar())
+
+	if pos == len(pila):
+		return 0
+	else:
+		return pos +1
+
+pilaPersonajes = pilas.Pila()
+
+pilaPersonajes.apilar(Personaje("asd", 40))
+pilaPersonajes.apilar(Personaje("Groot", 7))
+pilaPersonajes.apilar(Personaje("Rocket Raccooon", 4))
+pilaPersonajes.apilar(Personaje("Viuda Negra", 40))
+
+
+#A
+print(f"Posicion en la que se encuentra Rocket Raccoon: {ubicacionPersonaje(pilaPersonajes, 'Rocket Raccoon')}")
+print(f"Posicion en la que se encuentra Rocket Raccoon: {ubicacionPersonaje(pilaPersonajes, 'Groot')}")
+
+#B
+pila = pilaPersonajes
+pilaAux = pilas.Pila()
+
+print("Personajes con mas de 5 apariciones: ")
+while pila.pilaVacia() == 0:
+	if pila.cima().cantidad > 5:
+		print(pila.cima())
+	pilaAux.apilar(pila.desapilar())
+
+while pilaAux.pilaVacia() == 0:
+	pila.apilar(pilaAux.desapilar())
+#C
+while pila.pilaVacia() == 0:
+	if pila.cima().nombre == "Viuda Negra":
+		print(f"La cantidad de peliculas en la que participo La viuda negra es: {pila.cima().cantidad}")
+	pilaAux.apilar(pila.desapilar())
+
+while pilaAux.pilaVacia() == 0:
+	pila.apilar(pilaAux.desapilar())
+
+#D
+print("Personajes cuyos nombres comienzan con 'C', 'D', 'G'")
+letras = ['C', 'D', 'G']
+while pila.pilaVacia() == 0:
+	if pila.cima().nombre[0] in letras:
+		print(pila.cima())
+	pilaAux.apilar(pila.desapilar())
+
+while pilaAux.pilaVacia() == 0:
+	pila.apilar(pilaAux.desapilar())'''
