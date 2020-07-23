@@ -106,6 +106,20 @@ def MCD(num1, num2):
 		return MCD(num2, (num1%num2))
 
 #Ejercicio 12
+def mcd_euclides(num1, num2):
+	if num1 < num2:
+		return mcd_euclides(num2, num1)
+	else:
+		if num1 % num2 == 0:
+			return num2
+		else:
+			return mcd_euclides(num2, num1%num2)
+
+def mcm_euclides(num1, num2):
+	if num1 < num2:
+		return mcm_euclides(num2,num1)
+	else:
+		return (num1*num2)//(mcd_euclides(num1, num2))
 
 #Ejercicio 13
 def SumatoriaDigitos(num):
@@ -208,6 +222,8 @@ def Revision(vector):
 	else:
 		return 0
 
+#Ejercicio 22
+
 #Ejercicio 23
 def Hanoi(discos,a1,a2,a3):
 	if(discos == 1):
@@ -264,4 +280,3 @@ def MetodoNewtonRaphson(aproximacion):
 		return x
 	else:
 		return MetodoNewtonRaphson(x)
-
