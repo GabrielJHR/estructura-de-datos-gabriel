@@ -1,23 +1,15 @@
 
 from tda_lista import Lista, insertar, eliminar, busqueda, tamanio, barrido
 
-
-
-
 def crear_tabla(tamanio):
     tabla = [None] * tamanio
     return tabla
-
-
-tabla = [0, 1, None, 3, 4]
 
 def agregar_tc(tabla, hash, dato):
     posicion = hash(dato, tabla)
     if(tabla[posicion] is None):
         tabla[posicion] = dato
     else:
-        #!completar
-        print('colision aplicar sondeo')
         if(posicion == len(tabla)-1):
             posicion = -1
         posaux = posicion
@@ -28,8 +20,7 @@ def agregar_tc(tabla, hash, dato):
         
         if(tabla[posicion+1] is None):
             tabla[posicion+1] = dato
-        else:
-            print('hacer rehasing')
+        
 
 
 def agregar_ta(tabla, hash, dato, criterio=None):
@@ -64,7 +55,7 @@ def quitar_tc(tabla, hash, dato):
 def buscar_ta(tabla, hash, dato, criterio=None):
     posicion = hash(dato, tabla)
     if(tabla[posicion] is not None):
-        return busqueda(tabla[posicion], dato.palabra, criterio)
+        return busqueda(tabla[posicion], dato, criterio)
     else:
         return None
 
@@ -90,6 +81,18 @@ def buscar_tc(tabla, hash, dato):
                     break
     return pos
 
+def rehashing_tc(tabla, tamanio, funcHash = None):
+    nueva_tabla = crear_tabla(tamanio)
+    if funcHash != None:
+        for i in range(len(tabla)):
+            elemento = tabla[i]
+            if(elemento is not None):
+                agregar_tc(nueva_tabla, funcHash, elemento)
+
+    return nueva_tabla
+
+def hash_guia_telefono(dato, tabla):
+    return dato.numeroTelefono % len(tabla)
 
 def hash_division(clave, tabla):
     return clave % len(tabla)
